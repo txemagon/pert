@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'methadone'
+require 'pert.rb'
+
+class App
+  include Methadone::Main
+  include Methadone::CLILogging
+  include Pert
+
+  main do |task_file|
+    # your program code here
+    # You can access CLI options via
+    # the options Hash
+
+    if File.file? task_file
+       File.open(task_file, 'r') do |file| 
+          file.each_line do |line|
+            Pert::load_line line.gsub(/\s+/, "").split(",")
+          end
+
+          Pert::process
+          Pert:: print
+       end
+    end 
+  end
+
+  # supplemental methods here
+
+  # Declare command-line interface here
+
+  description "Creates a PERT diagram using Graphviz from a text file."
+  
+  # Accept flags via:
+  # on("--flag VAL","Some flag")
+  # options[flag] will contain VAL
+  #
+  # Specify switches via:
+  # on("--[no-]switch","Some switch")
+  #
+  # Or, just call OptionParser methods on opts
+  #
+  # Require an argument
+  arg :task_file, "File with tasks, durations and dependencies" 
+  #
+  # # Make an argument optional
+  # arg :optional_arg, :optional
+
+  version Pert::VERSION
+
+  use_log_level_option
+
+  go!
+end
