@@ -24,15 +24,15 @@ Or install it yourself as:
 
 ## Usage
 
-   $ bundle exec bin/pert <file>
+    $ bundle exec bin/pert <file>
 
 One example file is provided. To see it type:
 
-   $ budle exec bin/pert examples/pert.diag
+    $ budle exec bin/pert examples/pert.diag
 
 If you want to see an image, then:
 
-   $ budle exec bin/pert examples/pert.diag | dot | display
+    $ budle exec bin/pert examples/pert.diag | dot | display
 
    Remember to install graphviz and imagemagick.
 
