@@ -22,32 +22,34 @@ module Pert
       @@node[name] = self
       previous.each do |node_name|
         node_name = "START" if node_name == '-'
-        @previous << @@node[node_name] if !node_name.empty? and @@node[node_name]
+        @previous << @@node[node_name] if !node_name.empty? and @@node[node_name] and !@previous.include? @@node[node_name] 
 	begin
-	@@node[node_name].following << self
+	@@node[node_name].following << self unless @@node[node_name].following.include? self
 	rescue 
           puts "#{node_name} not found."
         end
       end
     end
 
-    def dump
-      output = ""
+    def dump()
+      output = Hash.new
       @following.each do |node|
-        output << "    #{self.name} [label=\"{#{@sooner_time} | #{@name} | #{@duration} | #{@last_time}}\"];\n"
-        output << "    #{self.name} -> #{node.name};\n"
-	output << node.dump
+        output[node] = "    #{self.name} [label=\"{#{@sooner_time} | #{@name} | #{@duration} | #{@last_time}}\"];\n"
+        output[node] << "    #{self.name} -> #{node.name};\n"
+	output.merge(node.dump)
+ 
       end
       output
     end
 
    def self.dump
+      lines = Hash.new
       ouput = <<-DIDIGRAPH
         digraph {
 	    rankdir=LR;
 	    node [shape=record style=rounded]
 
-           #{@@first_node.dump }
+           #{@@first_node.dump.values.inspect }"
 	}
       DIDIGRAPH
     end
@@ -62,9 +64,13 @@ module Pert
 	@@last_node.previous << self
       end
       @sooner_time = @previous.inject(0) do |b,a| 
-         (a.sooner_time || 0 ) + a.duration > b ? 
-	 a.sooner_time + a.duration : 
-	 b 
+         begin
+           (a.sooner_time || 0 ) + a.duration > b ? 
+	   a.sooner_time + a.duration : 
+	   b 
+         rescue
+           0
+         end
       end
       unless @following.empty?
         @following.each { |f| f.forward_process }
