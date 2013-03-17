@@ -53,13 +53,13 @@ Running:
 
 we come to:
 
-![PERT](txemagon.github.com/pert/examples/pert.jpg)
+![PERT](examples/pert.jpg)
 
 There we see the name of the task followed by its duration.
 The sooner I can start a task and the last for ending it are 
 calculated by the gem. See the next picture:
 
-![PERTexplained](txemgon.github.com/pert/examples/pert_exp.jpg)
+![PERTexplained](examples/pert_exp.jpg)
 
 
 ## Contributing
