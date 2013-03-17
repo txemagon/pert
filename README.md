@@ -36,6 +36,32 @@ If you want to see an image, then:
 
    Remember to install graphviz and imagemagick.
 
+## Example
+
+There are two examples under the examples directory. In pert.diag we can read:
+
+    # name_of_node, previous_nodes, ..., duration
+    A, - , 1    # A dash indicates no dependency
+    B, A , 4    # Node B, needs A to be finished, and takes 4 time units to end.
+    C, A , 3
+    D, B, C, 2  # Node D depends on B and C.
+    E, C, 4
+
+Running:
+
+    $ pert examples/pert.diag | dot | display
+
+we come to:
+
+![PERT](txemagon.github.com/pert/examples/pert.jpg)
+
+There we see the name of the task followed by its duration.
+The sooner I can start a task and the last for ending it are 
+calculated by the gem. See the next picture:
+
+![PERTexplained](txemgon.github.com/pert/examples/pert_exp.jpg)
+
+
 ## Contributing
 
 1. Fork it

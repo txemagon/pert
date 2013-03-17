@@ -17,11 +17,15 @@ class App
     if File.file? task_file
        File.open(task_file, 'r') do |file| 
           file.each_line do |line|
-            Pert::load_line line.gsub(/\s+/, "").split(",")
+            begin
+              Pert::load_line line.gsub(/#.*$/, "").gsub(/\s+/, "").split(",") unless line.empty?
+            rescue
+              puts "Error processing line: #{line}"
+            end
           end
 
           Pert::process
-          Pert:: print
+          Pert::print
        end
     end 
   end

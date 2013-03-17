@@ -1,5 +1,6 @@
-A, - , 1
-B, A , 4
+# name_of_node, previous_nodes, ..., duration
+A, - , 1    # A dash indicates no dependency
+B, A , 4    # Node B, needs A to be finished, and takes 4 time units to end.
 C, A , 3
-D, B, C, 2
+D, B, C, 2  # Node D depends on B and C.
 E, C, 4

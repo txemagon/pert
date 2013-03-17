@@ -34,9 +34,9 @@ module Pert
     def dump()
       output = Hash.new
       @following.each do |node|
-        output[node] = "    #{self.name} [label=\"{#{@sooner_time} | #{@name} | #{@duration} | #{@last_time}}\"];\n"
-        output[node] << "    #{self.name} -> #{node.name};\n"
-	output.merge(node.dump)
+        output["    #{self.name} [label=\"{#{@sooner_time} | #{@name} | #{@duration} | #{@last_time}}\"];\n"] = ""
+        output["    #{self.name} -> #{node.name};\n"] = ""
+	output.merge! node.dump
  
       end
       output
@@ -49,7 +49,7 @@ module Pert
 	    rankdir=LR;
 	    node [shape=record style=rounded]
 
-           #{@@first_node.dump.values.inspect }"
+           #{@@first_node.dump.keys.join("") }
 	}
       DIDIGRAPH
     end

@@ -4,8 +4,8 @@ require File.expand_path('../lib/pert/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["txemagon"]
   gem.email         = ["txema.gonz@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Creates PERT diagramas using a task file.}
+  gem.summary       = %q{Create a task file giving the name of a task, the tasks it depends on and a duration and get the PERT diagram in dot language. }
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
